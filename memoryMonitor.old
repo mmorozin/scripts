@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#echo -e "This is a RAM/SWAP memory monitor"
+
+#imem_total=$(free -m | grep Mem: | awk '{print $2}')
+#mem_used=$(free -m | grep Mem: | awk '{print $3}')
+#swap_total=$(free -m | grep Swap: | awk '{print $2}')
+#swap_used=$(free -m | grep Swap: | awk '{print $3}')
+
+#echo $mem_total
+#echo $mem_used
+#echo $swap_total
+#echo $swap_used
+
+mem_available_percent=$(free -m | grep Mem: | awk '{print int($3/$2*100)}')
+swap_available_percent=$(free -m | grep Swap: | awk '{print int($3/$2*100)}')
+
+#echo $mem_available_percent
+#echo $swap_available_percent
+memory_limit=$1
+
+echo -e "$(free -m | grep Mem: | awk '{print int($3/$2*100)+"percent" }')"
+
+#while [ 1 ]; do
+	if [ $mem_available_percent -gt $memory_limit ]; then
+		notify-send "Warning" "Low Memory:\nMain memory: $mem_available_percent% used!\nSwap: $swap_available_percent% used!"
+	fi
+#	echo -e "Sleeping 60 seconds"
+#	sleep 60
+#done
+ 
