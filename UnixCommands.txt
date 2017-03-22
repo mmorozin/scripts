@@ -1,0 +1,163 @@
+rc-status
+#Print some status of started services
+
+screen
+#Clean screen
+
+eix-sync
+#Emerge sync
+
+screen -dr
+#Unknown?? > Needs to be executed
+
+htop
+#Shows proceses and status
+
+uname -a
+#Shows kernel version
+
+emerge -uDNav --keep-going world
+#Update
+
+eselect kernel list
+
+eselect kernel set 5
+
+genkernel --kernel-config=/etc/kernels/kernel-config-x86_64-3.10.53 --bootloader=grub --install kerneldo
+
+vi /root/k5login
+#editing users that can have root access to the 
+
+tnm-ci1||tnm-ci2||tnm-ci3||tnm-ci4
+
+MD=Tnm Server/ME=172.21.1.10/PTP=client:1:5:11-12
+
+#Check Linux
+cat /etc/*-release
+
+#Installing MegaCli
+
+rpm -ivh http://mirror.cogentco.com/pub/misc/MegaCli-8.07.14-1.noarch.rpm
+
+#Running MegaCli:
+MegaCli -ShowSummary -aALL | awk '/Hardware/,/Storage/' | grep -e Connector -e "State              :"
+
+alias MegaCli="/opt/MegaRAID/MegaCli/MegaCli64"
+
+#Checking drive info in MegaCli, 252 is a Enclosure Device ID, 1 is a Slot Number!
+MegaCli -PDInfo -PhysDrv [252:1] -aALL
+
+#List all comp in a local network
+nmap -sP 192.168.0.1/24
+
+#add hostname to be recognised instead of ip address
+vi /etc/hosts
+
+#Upgrade nodes with latest from 28
+#login to the node
+mibsh
+swu -C upgrade all all 192.168.201.63/tftproot/remote/enm001a-r28a-rel-latest.spec
+
+#Provjera jel neki comp na merezi ziv i radi li
+nslookup 172.21.1.100
+
+#se-artif-prd.infinera.com
+#admin
+#Infinera99!
+
+#Combinations
+#admin/password
+#admin/admin > jira
+
+#mounting files on a files directory
+sudo mount files.transmode.se:/files /net/files
+
+#Gentoo maintenance
+sudo eix-sync
+sudo emerge -uDNav world --keep-going
+sudo dispatch-conf
+uname -a
+eselect kernel list
+eselect kernel xx
+gkernel --kernel-config=/etc/kernels/kernel-config-x86_64-4.0.4 --bootloader=grub --install kernel
+cd /boot/
+ls
+rm -f kernel-gernel
+vim grub/grub.conf
+emerge -ac
+
+files.transmode.se:/files on /net/files type nfs (rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=krb5i,mountaddr=192.168.201.12,mountvers=3,mountport=55324,mountproto=udp,local_lock=none,addr=192.168.201.12)
+
+#Gentoo check for installed software:
+sudo equery check '*hipchat*'
+
+#Gentoo uninstall sw
+emerge --unmerge package_name
+
+#Check hostname
+hostname -f
+
+#Advanced copy (copy content from dir1 to dir2)
+rsync -avzh /dir1 /dir2
+
+
+=== Gradle Cookbook ===
+gradle clean compile Java
+gradle cleanIdea idea
+IJ: > Rebuild project
+IJ: File > Invalidate Caches/Restart
+gradle get Java Agents
+rm -rf /home/mmorozin/.gradle/caches
+gradle --refresh-dependencies
+refresh gradle
+gradle test
+gradle afterideCompile test
+gradle clean test integTest
+
+
+=== IntelliJ Cool Features ===
+Crtl + Alt + O > Oprimise imports
+Ctrl + alt + l > Auto-intent lines
+
+=== CentOS select Java version ===
+alternatives --config java
+
+Jenkins Firefighting 2016-12-15
+> Installed JavaMemory plugin on a jenkins > Helped a little
+> sw-jenkins-m
+
+> /etc/puppet  #all config for puppet
+> manifest/site.pp
+> bin/start_puppet_dashboard
+> localhost:3000 > Dashoboard #
+
+> /etc/init.d/jenkins
+>Jenkins high availability? 
+
+=== Remove ICED-TEA JAVA ===
+eix iced
+emerge 
+
+#Grep all files in a folder for a string
+grep -rni "string" *
+
+#List all affected files in a specific RND number
+git log --name-status --grep="RND-10643" | grep java | sort | uniq
+
+#Manual adding node in a DB
+INSERT INTO `mlsnmembers` VALUES (3,'172.21.1.22',0,0,'0');
+INSERT INTO `nodes` VALUES ('172.21.1.22',1,1,0,'','Network',0,1,10,60,0,'public','oper','168197104041099169211137034231225041250025166208',0,'mms','111031031141017214122228',1,'oper','107170192195180188169044','',NULL,3,0,'','',0,NULL,NULL,'',2022);
+INSERT INTO `subnetmembers` VALUES (1,'172.21.1.22',143,228,1,'');
+
+#Check gentoo news
+eselect news read
+
+
+
+
+
+
+
+
+
+
