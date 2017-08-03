@@ -305,7 +305,4 @@ curl -s -u admin:admin -X POST -H "application/json" "http://centos-mmorozin.tra
 curl -s -u admin:admin -X POST -H "application/json" "http://centos-mmorozin.transmode.se:8081/api/node/admin/172.21.1.22/Network";
 curl -s -u admin:admin -X POST -H "application/json" "http://centos-mmorozin.transmode.se:8081/api/node/admin/172.21.1.23/Network";
 
-#Installing specific java version in Gentoo:
-sudo emerge =dev-java/oracle-jdk-bin-1.8.0.141
-
 
