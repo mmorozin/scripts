@@ -263,7 +263,7 @@ TnFAQz94
 			-WiFi
 			->RbPi3
 			->Chromecast
-			->Comp
+			->Compgit pull --
 			->MBA13
 			->A3
 			->S5
@@ -281,6 +281,9 @@ docker run
 
 docker run -d --privileged artifactory.transmode.se/tm3k/trunk-hostenv:25.0
 docker run -d --privileged artifactory.transmode.se/tm3k/trunk-hostenv:latest
+
+#Running bash commands inside docker container:
+docker exec -it <container_id_or_name> bash
 
 # Resize home drive on linux machines (nmci)
 pvs
@@ -304,5 +307,44 @@ curl -s -u admin:admin -X POST -H "application/json" "http://centos-mmorozin.tra
 curl -s -u admin:admin -X POST -H "application/json" "http://centos-mmorozin.transmode.se:8081/api/node/admin/172.21.1.10/Network";
 curl -s -u admin:admin -X POST -H "application/json" "http://centos-mmorozin.transmode.se:8081/api/node/admin/172.21.1.22/Network";
 curl -s -u admin:admin -X POST -H "application/json" "http://centos-mmorozin.transmode.se:8081/api/node/admin/172.21.1.23/Network";
+
+#Installing specific java version in Gentoo:
+sudo emerge =dev-java/oracle-jdk-bin-1.8.0.141
+
+#Gentoo update config files
+etc-update
+
+#Starting exposed docker image
+ifconfig eth0:1 172.16.15.248 netmask 255.255.252.0 up
+docker run -d -p 172.16.15.248:80:80 0fdb06b39288
+
+ifconfig eth0:2 172.16.15.249 netmask 255.255.252.0 up
+docker run -d -p 172.16.15.249:80:80 0fdb06b39288
+
+
+#Force stop jenkins job from jenkins console
+Jenkins.instance.getItemByFullName("DNAM_MTOSI_TestSuite").getBuildByNumber(44).finish(hudson.model.Result.ABORTED, new java.io.IOException("Aborting build"));
+
+##### WORKING CODE!!!!!!!!!!!!!!!!!!!! ##################
+powershell -Command "& {$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(('{0}:{1}' -f 'admin','admin'))); Invoke-RestMethod -Headers @{Authorization=('Basic {0}' -f $base64AuthInfo)} -Uri http://tnm-windows2:8081/api/node/admin/172.16.15.248/Network -Method Post -ContentType 'application/json'}"
+
+
+docker run -d --net=macvlan_bridge --ip=172.16.15.248 --mac-address 00:50:56:00:60:42 artifactory.transmode.se/tm3k/trunk-hostenv:25.0
+
+
+
+#Create two docker containers which are exposed to external network:
+#1. Create macvlan
+docker network create -d macvlan --subnet=172.16.15.0/22 --gateway=172.16.12.1 -o parent=eth0 macvlan
+#2. Start container
+docker run -d --net=macvlan --ip=172.16.15.245 artifactory.transmode.se/tm3k/trunk-hostenv:25.0
+docker run -d --net=macvlan --ip=172.16.15.248 artifactory.transmode.se/tm3k/trunk-hostenv:25.0
+
+#Remove all docker containers
+docker rm $(docker ps -a -q)
+
+#Remove macvlan docker network
+
+
 
 
